@@ -1,0 +1,25 @@
+# Use postgres/example user/password credentials
+
+services:
+
+  db:
+    container_name: postgres
+    image: postgres:12-alpine
+    shm_size: 128mb
+    env_file: .env
+    volumes:
+      - ./postgres:/data/postgres
+    ports:
+      - "5332:5432"   
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
