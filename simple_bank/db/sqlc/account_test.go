@@ -4,14 +4,15 @@ import (
 	"context"
 	"testing"
 
+	"github.com/nfiawornu/my-go-projects/simple_bank/util"
 	"github.com/stretchr/testify/require"
 )
 
 func TestCreateAccount(t *testing.T) {
 	arg := CreateAccountParams{
-		Owner:    "tom",
-		Balance:  100,
-		Currency: "USD",
+		Owner:    util.RandomOwner(),
+		Balance:  util.RandomMoney(),
+		Currency: util.RandomCurrency(),
 	}
 	account, err := testQueries.CreateAccount(context.Background(), arg)
 	require.NoError(t, err)
