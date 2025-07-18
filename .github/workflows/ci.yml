@@ -18,9 +18,9 @@ jobs:
         - name: Check out code into the Go module directory
           uses: actions/checkout@v2
         - name: Get dependencies
-          working-directory: simple_bank
+          # working-directory: simple_bank
           run: |
-            go get -v -t -d ./...
+            go get -v -t -d .simple-bank/...
             if [-f Gopkg.toml]; then
                 curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
                 dep ensure
