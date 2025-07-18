@@ -19,6 +19,7 @@ jobs:
           uses: actions/checkout@v2
         - name: Get dependencies
           # working-directory: simple_bank
+          # trigger ci
           run: |
             go get -v -t -d .simple-bank/...
             if [-f Gopkg.toml]; then
