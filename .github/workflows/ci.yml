@@ -25,13 +25,17 @@ jobs:
           --health-retries 5
           
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
 
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: '1.21' # Update to a modern Go version
+
+    - name: Checkout code into the Go module directory
+      uses: actions/checkout@v3
+
+    - name: Install golang-migrate
+      run: $ curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.$os-$arch.tar.gz | tar xvz
 
     - name: Install dependencies
       working-directory: simple_bank
