@@ -18,12 +18,12 @@ jobs:
           POSTGRES_PASSWORD: postgres_nobel
           POSTGRES_USER: postgres_nobel
           POSTGRES_DB: simple_bank
-      options: >-
-        --health-cmd pg_isready
-        --health-interval 10s
-        --health-timeout 5s
-        --health-retries 5
-
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 30s
+          --health-timeout 10s
+          --health-retries 5
+          
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
