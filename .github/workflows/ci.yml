@@ -11,6 +11,19 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12
+        env: 
+          POSTGRES_PASSWORD: postgres_nobel
+          POSTGRES_USER: postgres_nobel
+          POSTGRES_DB: simple_bank
+      options: >-
+        --health-cmd pg_isready
+        --health-interval 10s
+        --health-timeout 5s
+        --health-retries 5
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -25,6 +38,10 @@ jobs:
       run: |
         go mod download
         go mod verify
+
+    - name: Run migrations
+      working-directory: simple_bank
+      run: make migrateup
 
     - name: Run tests
       working-directory: simple_bank
