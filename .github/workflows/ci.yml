@@ -35,7 +35,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Install golang-migrate
-      run: $ curl -L https://github.com/golang-migrate/migrate/releases/download/$version/migrate.$os-$arch.tar.gz | tar xvz
+      run: $ curl -L https://github.com/golang-migrate/migrate/releases/tag/v4.18.3/migrate.linux-amd64.tar.gz | tar xvz
 
     - name: Install dependencies
       working-directory: simple_bank
