@@ -7,11 +7,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/nfiawornu/my-go-projects/simple_bank/api"
 	db "github.com/nfiawornu/my-go-projects/simple_bank/db/sqlc"
-)
-
-const (
-	serverAddress = "0.0.0.0:8082"
-	dbSource      = "postgresql://postgres_nobel:postgres_nobel@localhost:5432/simple_bank?sslmode=disable"
+	"github.com/nfiawornu/my-go-projects/simple_bank/util"
 )
 
 // var testQueries *Queries
@@ -19,8 +15,13 @@ var testDB *pgxpool.Pool
 
 func main() {
 
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load config:", err)
+	}
+
 	// Use context to establish connection
-	conn, err := pgxpool.New(context.Background(), dbSource)
+	conn, err := pgxpool.New(context.Background(), config.DBSource)
 	if err != nil {
 		log.Fatal("cannot connect to the DB:", err)
 	}
@@ -28,7 +29,7 @@ func main() {
 	store := db.NewStore(conn)
 	server := api.NewServer(store)
 
-	err = server.Start(serverAddress)
+	err = server.Start(config.ServerAddress)
 	if err != nil {
 		log.Fatal("cannot start server")
 	}
