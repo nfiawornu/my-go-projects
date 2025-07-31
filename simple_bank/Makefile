@@ -4,8 +4,12 @@ dropdb:
 	docker exec -it postgres dropdb --username=postgres_nobel --owner=postgres_nobel simple_bank
 migrateup:
 	migrate -path db/migration -database "postgresql://postgres_nobel:postgres_nobel@localhost:5432/simple_bank?sslmode=disable" -verbose up
+migrateup1:
+	migrate -path db/migration -database "postgresql://postgres_nobel:postgres_nobel@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
 migratedown:
 	migrate -path db/migration -database "postgresql://postgres_nobel:postgres_nobel@localhost:5432/simple_bank?sslmode=disable" -verbose down
+migratedown1:
+	migrate -path db/migration -database "postgresql://postgres_nobel:postgres_nobel@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
 
 sqlc:
 	sqlc generate
@@ -17,4 +21,4 @@ server:
 mock: 
 	mockgen -package mockdb -destination db/mock/store.go github.com/nfiawornu/my-go-projects/simple_bank/db/sqlc Store
 
-.PHONY: createdb dropdb migrateup migratedown sqlc test server mock
+.PHONY: createdb dropdb migrateup migratedown sqlc test server mock migrateup1 migratedown1
