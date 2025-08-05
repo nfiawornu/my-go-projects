@@ -8,21 +8,27 @@ import (
 	"github.com/go-playground/validator/v10"
 	db "github.com/nfiawornu/my-go-projects/simple_bank/db/sqlc"
 	"github.com/nfiawornu/my-go-projects/simple_bank/token"
+	"github.com/nfiawornu/my-go-projects/simple_bank/util"
 )
 
 type Server struct {
+	config     util.Config
 	store      db.Store
 	tokenMaker token.Maker
 	router     *gin.Engine
 }
 
 // NewServer creates a new HTTP server and setup routing
-func NewServer(store db.Store) *Server {
-	tokenMaker, err := token.NewPasetoMaker("")
+func NewServer(config util.Config, store db.Store) (*Server, error) {
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create token maker: %w", err)
 	}
-	server := &Server{store: store}
+	server := &Server{
+		store:      store,
+		config:     config,
+		tokenMaker: tokenMaker,
+	}
 	router := gin.Default()
 
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
@@ -48,7 +54,7 @@ func NewServer(store db.Store) *Server {
 	router.GET("entries", server.listEntries)
 
 	server.router = router
-	return server
+	return server, nil
 }
 
 // start runs the HTTP server on a specific address
