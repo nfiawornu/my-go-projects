@@ -1,19 +1,27 @@
 package api
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	db "github.com/nfiawornu/my-go-projects/simple_bank/db/sqlc"
+	"github.com/nfiawornu/my-go-projects/simple_bank/token"
 )
 
 type Server struct {
-	store  db.Store
-	router *gin.Engine
+	store      db.Store
+	tokenMaker token.Maker
+	router     *gin.Engine
 }
 
 // NewServer creates a new HTTP server and setup routing
 func NewServer(store db.Store) *Server {
+	tokenMaker, err := token.NewPasetoMaker("")
+	if err != nil {
+		return nil, fmt.Errorf("cannot create token maker: %w", err)
+	}
 	server := &Server{store: store}
 	router := gin.Default()
 
