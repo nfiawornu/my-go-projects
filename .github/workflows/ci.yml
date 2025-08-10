@@ -31,7 +31,7 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: '1.21' # Update to a modern Go version
+        go-version: ^1.24 # Update to a modern Go version
 
     - name: Checkout code into the Go module directory
       uses: actions/checkout@v3
