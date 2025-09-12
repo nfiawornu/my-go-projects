@@ -33,5 +33,6 @@ jobs:
           REPOSITORY: simplebank
           IMAGE_TAG: latest
         run: |
+          cd simple_bank
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
