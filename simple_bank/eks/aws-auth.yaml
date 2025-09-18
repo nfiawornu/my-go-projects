@@ -6,6 +6,6 @@ metadata:
 data: 
   mapRoles: | 
     - rolearn: arn:aws:iam::056244392644:role/Github-actions-ECRAccess
-      username: system:node:{{EC2PrivateDNSName}}
+      username: github-actions
       groups:
         - system:masters
