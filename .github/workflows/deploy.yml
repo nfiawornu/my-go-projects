@@ -10,12 +10,19 @@ permissions:
 
 jobs:
   deploy:
+  deploy:
     name: Build image
     runs-on: ubuntu-latest
      
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: 'v1.34.1' # default is latest stable
+        id: install
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v4
@@ -51,12 +58,15 @@ jobs:
           docker push -a $REGISTRY/$REPOSITORY 
 
       - name: Update kube config
-        run: aws eks update-kubeconfig --name simple-bank --region eu-west-1
+        run: |
+          aws eks update-kubeconfig --name simple-bank --region eu-west-1 --role-arn arn:aws:iam::056244392644:role/Github-actions-ECRAccess
+          kubectl config get-contexts
+          kubectl config use-context arn:aws:eks:eu-west-1:056244392644:cluster/simple-bank
 
       - name: Deploy image to AWS EKS
         working-directory: simple_bank
         run: |
-          aws sts get-caller-identity
+          
           kubectl apply -f eks/deployment.yaml --validate=false
           kubectl apply -f eks/svc.yaml --validate=false
           kubectl apply -f eks/ingress.yaml --validate=false
