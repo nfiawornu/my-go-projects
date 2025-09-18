@@ -56,7 +56,7 @@ jobs:
       - name: Deploy image to AWS EKS
         working-directory: simple_bank
         run: |
-          kubectl apply -f eks/aws-auth.yaml --validate=false
+    
           kubectl apply -f eks/deployment.yaml
           kubectl apply -f eks/svc.yaml
           kubectl apply -f eks/ingress.yaml
