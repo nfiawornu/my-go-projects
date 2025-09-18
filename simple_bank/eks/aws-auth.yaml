@@ -5,8 +5,7 @@ metadata:
   namespace: kube-system 
 data: 
   mapRoles: | 
-    - rolearn: arn:aws:iam::056244392644:role/Github-actions-ECRAccess
- 
+    - rolearn: arn:aws:iam::056244392644:role/Github-actions-ECRAccess 
       username: github-actions
       groups:
         - system:masters
