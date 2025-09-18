@@ -59,6 +59,10 @@ jobs:
 
       - name: Verify cluster access
         run: |
+          kubectl config view
+          mkdir -p $HOME/.kube
+          cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+          chown $(id -u):$(id -g) $HOME/.kube/config
           kubectl get nodes
 
       - name: Deploy image to AWS EKS
