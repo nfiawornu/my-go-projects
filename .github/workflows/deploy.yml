@@ -53,7 +53,7 @@ jobs:
 
       - name: Update kube config
         run: |
-          aws eks update-kubeconfig --name simple-bank --region eu-west-1 --role-arn arn:aws:iam::056244392644:role/Github-actions-ECRAccess
+          aws eks update-kubeconfig --name simple-bank --region eu-west-1 
           kubectl config get-contexts
           kubectl config use-context arn:aws:eks:eu-west-1:056244392644:cluster/simple-bank
 
