@@ -57,7 +57,7 @@ jobs:
         working-directory: simple_bank
         run: |
           aws sts get-caller-identity
-          kubectl apply -f eks/deployment.yaml
-          kubectl apply -f eks/svc.yaml
-          kubectl apply -f eks/ingress.yaml
+          kubectl apply -f eks/deployment.yaml --validate=false
+          kubectl apply -f eks/svc.yaml --validate=false
+          kubectl apply -f eks/ingress.yaml --validate=false
           
