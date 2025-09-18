@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  
   deploy:
     name: Build image
     runs-on: ubuntu-latest
