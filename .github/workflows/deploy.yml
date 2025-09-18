@@ -53,16 +53,16 @@ jobs:
 
       - name: Update kube config
         run: |
-          aws eks update-kubeconfig --name simple-bank --region eu-west-1 
+          aws eks update-kubeconfig --name simple-bank --region eu-west-1 --role-arn arn:aws:iam::056244392644:role/GithubActionsEKSRole
           kubectl config get-contexts
           kubectl config use-context arn:aws:eks:eu-west-1:056244392644:cluster/simple-bank
 
       - name: Verify cluster access
         run: |
           kubectl config view
-          mkdir -p $HOME/.kube
-          cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-          chown $(id -u):$(id -g) $HOME/.kube/config
+          # mkdir -p $HOME/.kube
+          # cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+          # chown $(id -u):$(id -g) $HOME/.kube/config
           kubectl get nodes
 
       - name: Deploy image to AWS EKS
