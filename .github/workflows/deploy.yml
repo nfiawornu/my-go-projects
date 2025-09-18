@@ -55,21 +55,10 @@ jobs:
       - name: Update kube config
         run: |
           aws eks update-kubeconfig --name simple-bank --region eu-west-1  
-          kubectl config get-contexts
-          kubectl config use-context arn:aws:eks:eu-west-1:056244392644:cluster/simple-bank
-          
-      - name: Verify cluster access
-        run: |
-          kubectl config view
-          aws eks update-kubeconfig --name simple-bank --region eu-west-1  
-  
-          kubectl get nodes
+ 
 
       - name: Deploy image to AWS EKS
         working-directory: simple_bank
         run: |
-          
-          kubectl apply -f eks/deployment.yaml --validate=false
-          kubectl apply -f eks/svc.yaml --validate=false
-          kubectl apply -f eks/ingress.yaml --validate=false
+          kubectl apply -f eks/
           
