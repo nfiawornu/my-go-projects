@@ -5,6 +5,8 @@
 package db
 
 import (
+	"time"
+
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
@@ -33,7 +35,7 @@ type Session struct {
 	UserAgent    string             `json:"user_agent"`
 	ClientIp     string             `json:"client_ip"`
 	IsBlocked    bool               `json:"is_blocked"`
-	ExpiresAt    pgtype.Timestamptz `json:"expires_at"`
+	ExpiresAt    time.Time          `json:"expires_at"`
 	CreatedAt    pgtype.Timestamptz `json:"created_at"`
 }
 

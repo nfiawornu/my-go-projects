@@ -15,7 +15,7 @@ type createTransferRequest struct {
 	FromAccountID int64  `json:"from_account_id" binding:"required"`
 	ToAccountID   int64  `json:"to_account_id" binding:"required"`
 	Amount        int64  `json:"amount" binding:"required"`
-	Currency      string `json: "currency" binding: "required,currency"`
+	Currency      string `json: "currency" binding: "required"`
 }
 
 func (server *Server) createTransfer(ctx *gin.Context) {
