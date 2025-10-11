@@ -22,9 +22,11 @@ mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/nfiawornu/my-go-projects/simple_bank/db/sqlc Store
 
 proto:
-	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
+	rm -f pb/*.go
+	protoc -I="C:/Users/NOBEL FIAWORNU/go/protoc-32.1-win64/include"  --proto_path=./proto --go_out=pb --go_opt=paths=source_relative \
     --go-grpc_out=pb --go-grpc_opt=paths=source_relative \
     proto/*.proto
+evans:
+	"C:/Users/NOBEL FIAWORNU/Downloads/Compressed/evans_windows_386/evans.exe" --host localhost --port 9092 -r repl
 
-
-.PHONY: createdb dropdb migrateup migratedown sqlc test server mock migrateup1 migratedown1 proto
+.PHONY: createdb dropdb migrateup migratedown sqlc test server mock migrateup1 migratedown1 proto evans
