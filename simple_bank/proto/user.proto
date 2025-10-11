@@ -1,8 +1,9 @@
 syntax="proto3";
 
 package pb;
-import "google/protobuf/timestamp.proto";
+ 
 
+import "google/protobuf/timestamp.proto";
 
 option go_package="github.com/nfiawornu/my-go-projects/simple_bank/pb";
 
@@ -13,4 +14,3 @@ message User {
     google.protobuf.Timestamp password_changed_at=4;
     google.protobuf.Timestamp created_at=5;
 } 
-
